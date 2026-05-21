@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Truffle Browser | Installer & Hub</title>
+<style>
+:root {
+--bg-primary: #0f0a0a;
+--bg-secondary: #1a1111;
+--bg-accent: #2a1818;
+--accent-red: #ff3333;
+--accent-hover: #cc0000;
+--text-main: #ffffff;
+--text-muted: #b39999;
+--success-green: #22c55e;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+background-color: var(--bg-primary);
+color: var(--text-main);
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 20px;
+}
+
+.installer-container {
+background-color: var(--bg-secondary);
+border: 2px solid var(--accent-red);
+border-radius: 12px;
+width: 100%;
+max-width: 750px;
+padding: 30px;
+box-shadow: 0 0 25px rgba(255, 51, 51, 0.15);
+}
+
+.header {
+text-align: center;
+margin-bottom: 30px;
+border-bottom: 1px solid var(--bg-accent);
+padding-bottom: 20px;
+}
+
+.header h1 {
+color: var(--accent-red);
+font-size: 2.2rem;
+text-transform: uppercase;
+letter-spacing: 2px;
+text-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
+margin-bottom: 5px;
+}
+
+.header p {
+color: var(--text-muted);
+font-size: 0.95rem;
+}
+
+.setup-section {
+margin-bottom: 25px;
+}
+
+.section-title {
+font-size: 1.1rem;
+color: var(--text-main);
+margin-bottom: 12px;
+text-transform: uppercase;
+letter-spacing: 1px;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.section-title::before {
+content: '';
+display: inline-block;
+width: 4px;
+height: 16px;
+background-color: var(--accent-red);
+}
+
+.form-group {
+margin-bottom: 15px;
+}
+
+label {
+display: block;
+color: var(--text-muted);
+font-size: 0.85rem;
+margin-bottom: 6px;
+font-weight: 600;
+}
+
+.input-control {
+width: 100%;
+background-color: var(--bg-primary);
+border: 1px solid var(--bg-accent);
+color: var(--text-main);
+padding: 10px 15px;
+border-radius: 6px;
+font-size: 0.9rem;
+outline: none;
+transition: border-color 0.2s;
+}
+
+.input-control:focus {
+border-color: var(--accent-red);
+}
+
+select.input-control {
+cursor: pointer;
+}
+
+/* Twin Downloader Layout Cards */
+.download-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 20px;
+margin-top: 30px;
+border-top: 1px solid var(--bg-accent);
+padding-top: 25px;
+}
+
+.download-card {
+background-color: var(--bg-primary);
+border: 1px solid var(--bg-accent);
+border-radius: 8px;
+padding: 20px;
+text-align: center;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+transition: transform 0.2s, border-color 0.2s;
+}
+
+.download-card:hover {
+transform: translateY(-3px);
+border-color: var(--accent-red);
+}
+
+.download-card.light-card:hover {
+border-color: var(--text-muted);
+}
+
+.card-title {
+font-size: 1.2rem;
+font-weight: bold;
+margin-bottom: 8px;
+}
+
+.card-desc {
+font-size: 0.8rem;
+color: var(--text-muted);
+margin-bottom: 20px;
+line-height: 1.4;
+}
+
+.dl-btn {
+width: 100%;
+padding: 12px;
+border: none;
+border-radius: 6px;
+font-weight: bold;
+cursor: pointer;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.btn-normal {
+background-color: var(--accent-red);
+color: var(--text-main);
+}
+
+.btn-normal:hover {
+background-color: var(--accent-hover);
+box-shadow: 0 4px 12px rgba(255, 51, 51, 0.3);
+}
+
+.btn-light {
+background-color: var(--bg-accent);
+color: var(--text-main);
+border: 1px solid var(--text-muted);
+}
+
+.btn-light:hover {
+background-color: var(--text-muted);
+color: var(--bg-primary);
+}
+
+.footer-note {
+text-align: center;
+font-size: 0.75rem;
+color: var(--text-muted);
+margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="installer-container">
+<div class="header">
+<h1>Truffle Configuration Suite</h1>
+<p>Configure backend routing rules and compile optimized localized instances</p>
+</div>
+
+<!-- Section 1: Server Routing Parameters -->
+<div class="setup-section">
+<h2 class="section-title">Backend Server Settings</h2>
+<div class="form-group">
+<label for="serverSelect">Default Master Pr0xy Server</label>
+<select id="serverSelect" class="input-control" onchange="toggleCustomServer()">
+<option value="https://allorigins.win" selected>Mercury Workshop Node (Default)</option>
+<option value="https://googleusercontent.com">Google Gadget Infrastructure Relay</option>
+<option value="direct">Direct Native Framing Engine (No Pr0xy Sandbox)</option>
+<option value="custom">Deploy Personal Custom Endpoint...</option>
+</select>
+</div>
+
+<div class="form-group" id="customServerGroup" style="display: none;">
+<label for="customServerUrl">Custom Connection URI String</label>
+<input type="text" id="customServerUrl" class="input-control" placeholder="https://example.com or proxy query routing structure...">
+</div>
+</div>
+
+<!-- Section 2: Browser Functionality Overrides -->
+<div class="setup-section">
+<h2 class="section-title">Security & Key Cloaking Settings</h2>
+<div class="form-group">
+<label for="searchEngine">Search Gateway Link</label>
+<select id="searchEngine" class="input-control">
+<option value="https://duckduckgo.com">DuckDuckGo Secure Engine</option>
+<option value="https://bing.com">Bing Mirror Web Endpoint</option>
+<option value="https://google.com">Google Baseline System</option>
+</select>
+</div>
+<div class="form-group">
+<label for="panicKey">Cloak Trigger Hotkey Code</label>
+<input type="text" id="panicKey" class="input-control" value="Escape" placeholder="e.g., Escape, Backspace, F4">
+</div>
+</div>
+
+<!-- Compilation Output Grid -->
+<div class="download-grid">
+<!-- Normal Build -->
+<div class="download-card">
+<div>
+<div class="card-title" style="color: var(--accent-red);">truffle.html</div>
+<div class="card-desc">The standard browser suite containing structural tab systems, dark crimson user theme controls, full search parameters, and unbl0cked gnmath dev games matrix integration.</div>
+</div>
+<button class="dl-btn btn-normal" onclick="compileAndDownload('normal')">Download Normal Build</button>
+</div>
+
+<!-- Light Build -->
+<div class="download-card light-card">
+<div>
+<div class="card-title" style="color: var(--text-muted);">truffled light .html</div>
+<div class="card-desc">An ultra-stripped down stealth build. Contains only the header navigation interface, core proxy frame engine, and panic systems. Free of games or layout bloat.</div>
+</div>
+<button class="dl-btn btn-light" onclick="compileAndDownload('light')">Download Light Build</button>
+</div>
+</div>
+
+<div class="footer-note">
+Truffle Browser compilation engine processes entirely client-side. No configuration tokens are transmitted to external services.
+</div>
+</div>
+
+<script>
+function toggleCustomServer() {
+const selector = document.getElementById('serverSelect');
+const customGroup = document.getElementById('customServerGroup');
+customGroup.style.display = (selector.value === 'custom') ? 'block' : 'none';
+}
+
+function getActiveRoutingUrl() {
+const selector = document.getElementById('serverSelect').value;
+if (selector === 'custom') {
+return document.getElementById('customServerUrl').value.trim();
+}
+return selector;
+}
+
+// Shared dynamic configuration template string injector
+function compileAndDownload(buildType) {
+const routingServer = getActiveRoutingUrl() || "direct";
+const engineUrl = document.getElementById('searchEngine').value;
+const panicButtonKey = document.getElementById('panicKey').value.trim() || "Escape";
+
+let htmlPayload = '';
+
+if (buildType === 'light') {
+// 1. LIGHT TEMPLATE (No Games List)
+htmlPayload = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Truffle Light</title>
+<style>
+:root { --bg-primary: #0a0606; --bg-secondary: #140d0d; --accent-red: #ff3333; --text-main: #ffffff; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+body { background: var(--bg-primary); color: var(--text-main); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+.bar { background: var(--bg-secondary); border-bottom: 2px solid var(--accent-red); padding: 8px 15px; display: flex; gap: 12px; align-items: center; }
+.title { color: var(--accent-red); font-weight: bold; font-size: 1.1rem; text-transform: uppercase; }
+.btn { background: #221414; border: 1px solid var(--accent-red); color: #fff; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
+.btn:hover { background: var(--accent-red); }
+.inp { flex-grow: 1; background: #000; border: 1px solid #331a1a; color: #fff; padding: 6px 12px; border-radius: 4px; outline: none; }
+.viewport-container { flex-grow: 1; background: #000; position: relative; }
+iframe { width: 100%; height: 100%; border: none; background: #fff; }
+</style>
+</head>
+<body>
+<div class="bar">
+<div class="title">Truffle Light</div>
+<button class="btn" onclick="document.getElementById('vp').src = document.getElementById('vp').src">↻</button>
+<input type="text" id="url" class="inp" value="https://bing.com" onkeydown="if(e=>e.key==='Enter')launch()">
+<button class="btn" style="background:var(--accent-red);" onclick="launch()">Go</button>
+<button class="btn" style="background:#d93838;" onclick="panic()">Panic</button>
+</div>
+<div class="viewport-container"><iframe id="vp" src="about:blank"></iframe></div>
+<script>
+const routingMode = "${routingServer}";
+const searchEngine = "${engineUrl}";
+const panicKey = "${panicButtonKey}";
+
+window.onload = function() { loadUrl("https://bing.com"); };
+function launch() {
+let val = document.getElementById('url').value.trim();
+if(!val.includes('.') || val.includes(' ')) { val = searchEngine + encodeURIComponent(val); }
+else if(!/^https?:\\/\\//i.test(val)) { val = 'https://' + val; }
+document.getElementById('url').value = val;
+loadUrl(val);
+}
+function loadUrl(url) {
+document.getElementById('vp').src = (routingMode === "direct") ? url : routingMode + encodeURIComponent(url);
+}
+function panic() { window.location.replace("https://google.com"); }
+window.addEventListener('keydown', function(e) { if(e.key === panicKey) panic(); });
+<\/script>
+</body>
+</html>`;
+} else {
+// 2. NORMAL BUILD TEMPLATE (Full Layout + gnmath dev Games)
+htmlPayload = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Truffle Browser</title>
+<style>
+:root { --bg-primary: #0f0a0a; --bg-secondary: #1a1111; --bg-accent: #2a1818; --accent-red: #ff3333; --text-main: #ffffff; --text-muted: #b39999; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+body { background: var(--bg-primary); color: var(--text-main); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+.header { background: var(--bg-secondary); border-bottom: 2px solid var(--accent-red); padding: 10px 15px; display: flex; align-items: center; gap: 15px; }
+.brand { color: var(--accent-red); font-weight: 800; font-size: 1.3rem; text-transform: uppercase; }
+.nav-btn { background: var(--bg-accent); border: 1px solid rgba(255, 51, 51, 0.2); color: #fff; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.nav-btn:hover { background: var(--accent-red); }
+.url-input { flex-grow: 1; background: var(--bg-primary); border: 1px solid var(--bg-accent); color: #fff; padding: 8px 15px; border-radius: 6px; outline: none; }
+.tabs { display: flex; background: var(--bg-secondary); padding: 0 15px; gap: 5px; }
+.tab { padding: 8px 16px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-weight: bold; border-top-left-radius: 6px; border-top-right-radius: 6px; }
+.tab.active { background: var(--accent-red); color: #fff; }
+.content { flex-grow: 1; position: relative; background: #000; }
+.panel { position: absolute; top:0; left:0; width:100%; height:100%; display:none; }
+.panel.active { display: block; }
+iframe { width: 100%; height: 100%; border: none; background: #fff; }
+.grid { padding: 30px; height: 100%; overflow-y: auto; }
+.title-sec { font-size: 1.5rem; margin-bottom: 20px; border-left: 4px solid var(--accent-red); padding-left: 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.card { background: var(--bg-secondary); border: 1px solid var(--bg-accent); border-radius: 10px; padding: 15px; text-align: center; cursor: pointer; }
+.card:hover { border-color: var(--accent-red); }
+.card img { width: 70px; height: 70px; margin-bottom: 10px; border-radius: 8px; object-fit: cover; background: #000; }
+</style>
+</head>
+<body>
+<div class="header">
+<div class="brand">Truffle</div>
+<input type="text" class="url-input" id="url" value="https://google.com" onkeydown="if(event.key==='Enter')launch()">
+<button class="nav-btn" style="background:var(--accent-red);" onclick="launch()">Go Pr0xy</button>
+</div>
+<div class="tabs">
+<button class="tab active" id="b-tab" onclick="tab('browser')">Pr0xy Browser</button>
+<button class="tab" id="g-tab" onclick="tab('games')">gnmath dev Games</button>
+</div>
+<div class="content">
+<div id="p-browser" class="panel active"><iframe id="vp" src="about:blank"></iframe></div>
+<div id="p-games" class="panel">
+<div class="grid">
+<h2 class="title-sec">gnmath dev Collection</h2>
+<div class="cards">
+<div class="card" onclick="game('https://github.io')"><img src="https://github.io"><h3>Drive Mad</h3></div>
+<div class="card" onclick="game('https://github.io')"><img src="https://github.io"><h3>Slope 3D</h3></div>
+<div class="card" onclick="game('https://github.io')"><img src="https://github.io"><h3>Tunnel Rush</h3></div>
+<div class="card" onclick="game('https://github.io')"><img src="https://github.io"><h3>Retro Bowl</h3></div>
+<div class="card" onclick="game('https://github.io')"><img src="https://github.io"><h3>Subway Surfers</h3></div>
+</div>
+</div>
+</div>
+</div>
+<script>
+const routingMode = "${routingServer}";
+const searchEngine = "${engineUrl}";
+const panicKey = "${panicButtonKey}";
+
+window.onload = function() { loadUrl("https://bing.com"); };
+function launch() {
+let val = document.getElementById('url').value.trim();
+if(!val.includes('.') || val.includes(' ')) { val = searchEngine + encodeURIComponent(val); }
+else if(!/^https?:\\/\\//i.test(val)) { val = 'https://' + val; }
+document.getElementById('url').value = val;
+loadUrl(val);
+tab('browser');
+}
+function loadUrl(url) {
+document.getElementById('vp').src = (routingMode === "direct") ? url : routingMode + encodeURIComponent(url);
+}
+function tab(t) {
+document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+document.getElementById('p-'+t).classList.add('active');
+document.getElementById(t==='browser'?'b-tab':'g-tab').classList.add('active');
+}
+function game(url) { document.getElementById('url').value = url; loadUrl(url); tab('browser'); }
+function panic() { window.location.replace("https://google.com"); }
+window.addEventListener('keydown', function(e) { if(e.key === panicKey) panic(); });
+<\/script>
+</body>
+</html>`;
+}
+
+// Create client data streaming blob pipeline to force native filesystem download
+const blob = new Blob([htmlPayload], { type: 'text/html' });
+const downloadAnchor = document.createElement('a');
+downloadAnchor.href = URL.createObjectURL(blob);
+downloadAnchor.download = (buildType === 'light') ? 'truffled light .html' : 'truffle.html';
+
+document.body.appendChild(downloadAnchor);
+downloadAnchor.click();
+document.body.removeChild(downloadAnchor);
+}
+</script>
+</body>
+</html>
